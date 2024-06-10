@@ -2,17 +2,18 @@ from dnacentersdk import api
 import json
 import time
 import calendar
+from requests.auth import HTTPBasicAuth  
 
-dna = api.DNACenterAPI(base_url='https://sandboxdnac2.cisco.com',
-                       username='devnetuser', password='Cisco123!')
+dna = api.DNACenterAPI(base_url='https://sandboxdnac.cisco.com',
+                       username='devnetuser', password='Cisco123!', verify=False)
 
 
 ##### NETWORKS AND SITES ####
 
 # Print Site Topology
-sites = dna.networks.get_site_topology()
+sites = dna.topology.get_site_topology()
 for site in sites.response.sites:
-    if site.parentId == 'a7cbac22-d82e-42ed-a705-b51829e955fa':
+    if site.parentId == '5f03d9a9-33df-450e-b0c3-6bcb5f721688':
         print(site.name)
         for child_sites in sites.response.sites:
             if child_sites.parentId == site.id:
@@ -23,12 +24,12 @@ for site in sites.response.sites:
     print(' ')
 
 # Print Vlans
-vlans = dna.networks.get_vlan_details()
+vlans = dna.topology.get_vlan_details()
 for vlan in vlans.response:
     print(vlan)
 
 # Physical Topology Details
-phys_top = dna.networks.get_physical_topology()
+phys_top = dna.topology.get_physical_topology()
 print(json.dumps(phys_top, indent=2, sort_keys=True))
 
 
@@ -43,7 +44,7 @@ for device in devices.response:
     print(" ")
 
 # Get a specific device
-device = dna.devices.get_device_by_id('10cdbf6d-3672-4b4d-ae75-5b661fa0a5bc')
+device = dna.devices.get_device_by_id('c069bc2c-bfa3-47ef-a37e-35e2f8ed3f01')
 print(device)
 
 
