@@ -1,4 +1,4 @@
-$url = "https://dashboard.meraki.com/api/v0/organizations"
+$url = "https://dashboard.meraki.com/api/v1/organizations"
 $headers = @{
     'Accept'                 = 'application/json' 
     'X-Cisco-Meraki-API-Key' = "6bec40cf957de430a6f1f2baa056b99a4fac9ea0"
@@ -15,7 +15,7 @@ ForEach ($org in $orgs) {
     }
 }
 $orgId
-$net_url = "https://dashboard.meraki.com/api/v0/organizations/$($orgId)/networks"
+$net_url = "https://dashboard.meraki.com/api/v1/organizations/$($orgId)/networks"
 $networks = Invoke-RestMethod -Uri $net_url `
     -Method get `
     -ContentType 'application/json' `
@@ -28,7 +28,7 @@ ForEach ($network in $networks) {
     }
 }
 
-$devices_url = "https://dashboard.meraki.com/api/v0/networks/$($netId)/devices"
+$devices_url = "https://dashboard.meraki.com/api/v1/networks/$($netId)/devices"
 $devices = Invoke-RestMethod -Uri $devices_url `
     -Method get `
     -ContentType 'application/json' `
