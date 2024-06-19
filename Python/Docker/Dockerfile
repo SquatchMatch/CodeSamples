@@ -4,7 +4,9 @@ LABEL Knox Hutchinson "khutchinson@cbtnuggets.com"
 
 RUN apt-get update -y && apt-get install -y python3-pip python3-dev
 
-CMD ["ufw allow 5000"]
+# CMD ["ufw allow 5000"]
+
+RUN 'ufw allow 5000'
 
 COPY ./requirements.txt /app/requirements.txt
 
